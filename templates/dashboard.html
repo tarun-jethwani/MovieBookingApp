@@ -1,0 +1,64 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" style="color:white" href="#"><span class="glyphicon glyphicon-facetime-video"></span> Movie Booking App</a>
+    </div>
+    <ul class="nav navbar-nav navbar-left">
+      <li class="active"><a><span class="glyphicon glyphicon-user"></span> &nbsp;<span class="label label-danger">Logged in</span>&nbsp;<b>{{user}}</b></a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown"><a class="dropdown-toggle btn btn-primary" data-toggle="dropdown" style="color:white" href="#">Select Movie <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          {% for movie in all_movies %}
+          <li><a href="{{url_for('movie_dropdown', movie=movie)}}">{{movie}}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+      <li class="active"><a href="{{url_for('show_bookings')}}"><span class="glyphicon glyphicon-tags"></span> User Bookings</a></li>
+      <li class="active"><a href="{{url_for('logout')}}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="main">
+          <div class="jumbotron">
+            <h1 class="page-header">Welcome, {{user}}</h1>
+            <h3>Movies Playing in your City : {{city}}</h3>
+          </div>
+        </div>
+        <center>
+            <div class="container">
+              <div class="row">
+                  {% for movie in movies %}
+                      <div class="col-sm-4">
+                        <div class="well well-lg">
+                          {% set movie_detail = movie ~ "_" ~ city %}
+                          <a href="{{url_for('movie_dropdown', movie=movie_detail)}}" class="btn btn-primary btn-lg">{{movie}}</a>
+                          <h4>Click movie to view details</h4>
+                        </div>
+                      </div>
+                  {% endfor %}
+              </div>
+            </div>
+        </center>
+
+
+      </div>
+    </div>
+{% endblock %}

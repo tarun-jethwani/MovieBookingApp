@@ -1,0 +1,41 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Demo App
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='starter-template.css')}}">
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Book Movie</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>Movie Booking Website</h1>
+        <p class="lead">A Simple Movie Booking Website<br> View available movies in your city and book tickets to your nearest movie theatre</p>
+      </div>
+
+    </div><!-- /.container -->
+{% endblock %}

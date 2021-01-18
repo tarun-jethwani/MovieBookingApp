@@ -1,0 +1,82 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+{% endblock %}
+{% block content %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" style="color:white" href="#"><span class="glyphicon glyphicon-facetime-video"></span> Movie Booking App</a>
+    </div>
+    <ul class="nav navbar-nav navbar-left">
+      <li class="active"><a><span class="glyphicon glyphicon-user"></span> &nbsp;<span class="label label-danger">Logged in</span>&nbsp;<b>{{user}}</b></a></li>
+    </ul>
+      <ul class="nav navbar-nav navbar-right">
+      <li class="active"><a href="{{url_for('dashboard')}}"><span class="glyphicon glyphicon-th-list"></span> Dashboard</a></li>
+      <li class="dropdown"><a class="dropdown-toggle btn btn-primary" data-toggle="dropdown" style="color:white" href="#">Select Movie <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          {% for movie in all_movies %}
+          <li><a href="{{url_for('movie_dropdown', movie=movie)}}">{{movie}}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+          <li class="active"><a href="{{url_for('show_bookings')}}"><span class="glyphicon glyphicon-tags"></span> User Bookings</a></li>
+      <li class="active"><a href="{{url_for('logout')}}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <h2>Show Bookings</h2>
+  <p> Showing Most Recent Booking </p>
+  <table class="table">
+    <thead>
+      <tr class="active">
+        <th>Cinema</th>
+        <th>Movie</th>
+        <th>City</th>
+        <th>Show Time</th>
+        <th>Seat Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="success">{{recent_booking[0]}}</td>
+        <td class="success">{{recent_booking[1]}}</td>
+        <td class="success">{{recent_booking[2]}}</td>
+        <td class="info">{{recent_booking[3]}}</td>
+        <td class="warning">{{recent_booking[4]}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+    <h3>Past Bookings (from most recent to oldest)</h3>
+  <table class="table">
+     <thead>
+      <tr class="active">
+        <th>Cinema</th>
+        <th>Movie</th>
+        <th>City</th>
+        <th>Show Time</th>
+        <th>Seat Number</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for booking in past_bookings %}
+    <tr>
+        <td class="success">{{booking[0]}}</td>
+        <td class="success">{{booking[1]}}</td>
+        <td class="success">{{booking[2]}}</td>
+        <td class="info">{{booking[3]}}</td>
+        <td class="warning">{{booking[4]}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
